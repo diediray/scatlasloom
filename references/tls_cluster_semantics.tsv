@@ -1,0 +1,29 @@
+cluster_id	label	biological_class	cycling_state	display_block	color	interpretation
+1	CD8.T.naive/centr.mem	CD8 T	not a named cycling cluster	CD8	#634017	Display block is not a lineage assignment
+2	CD8.T.effector.mem	CD8 T	not a named cycling cluster	CD8	#EBF5C3	Display block is not a lineage assignment
+3	CD8.T.cytotoxic	CD8 T	not a named cycling cluster	CD8	#E0E17B	Display block is not a lineage assignment
+4	CD8.T.exh	CD8 T	not a named cycling cluster	CD8	#A68233	Display block is not a lineage assignment
+5	CD8.T.ISG	CD8 T	not a named cycling cluster	CD8	#CAB651	Display block is not a lineage assignment
+6	Cycling.CD4.T	CD4 T (cycling; Tconv/Treg unresolved here)	yes	Cycling	#636CD8	Display block is not a lineage assignment
+7	Cycling.CD8.T	CD8 T	yes	Cycling	#B2ADDA	Display block is not a lineage assignment
+8	Cycling.NK	NK	yes	Cycling	#375A9D	Display block is not a lineage assignment
+9	CD4.T.naive/centr.mem	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#E78387	Display block is not a lineage assignment
+10	CD4.T.effector.mem	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#D7433F	Display block is not a lineage assignment
+11	CD4.T.effector	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#B32D26	Display block is not a lineage assignment
+12	CD4.T.prog.exh/Tfh	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#E35C5E	Display block is not a lineage assignment
+13	CD4.T.term.exh	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#EBCDCF	Display block is not a lineage assignment
+14	CD4.T.ISG	CD4 Tconv	not a named cycling cluster	CD4 Tconv	#6E1511	Display block is not a lineage assignment
+15	CD4.Treg.mem	CD4 Treg	not a named cycling cluster	CD4 Treg	#99267A	Display block is not a lineage assignment
+16	CD4.Treg.1	CD4 Treg	not a named cycling cluster	CD4 Treg	#E989A9	Display block is not a lineage assignment
+17	CD4.Treg.2	CD4 Treg	not a named cycling cluster	CD4 Treg	#E6629A	Display block is not a lineage assignment
+18	CD4.Treg.3	CD4 Treg	not a named cycling cluster	CD4 Treg	#C5378E	Display block is not a lineage assignment
+19	CD4.Treg.exh.1	CD4 Treg	not a named cycling cluster	CD4 Treg	#550F4C	Display block is not a lineage assignment
+20	CD4.Treg.exh.2	CD4 Treg	not a named cycling cluster	CD4 Treg	#ECCDD6	Display block is not a lineage assignment
+21	CD4.Treg.ISG	CD4 Treg	not a named cycling cluster	CD4 Treg	#DD4995	Display block is not a lineage assignment
+22	NKT.1	NKT	not a named cycling cluster	NK and minor lymphoid	#8DD6EE	Display block is not a lineage assignment
+23	NKT.2	NKT	not a named cycling cluster	NK and minor lymphoid	#377C74	Display block is not a lineage assignment
+24	NK.cytotoxic	NK	not a named cycling cluster	NK and minor lymphoid	#72D1E0	Display block is not a lineage assignment
+25	NK.reg.CRTAM	NK	not a named cycling cluster	NK and minor lymphoid	#5BB9BB	Display block is not a lineage assignment
+26	NK.reg.KRT86	NK	not a named cycling cluster	NK and minor lymphoid	#C6E3F2	Display block is not a lineage assignment
+27	γδ.T	gamma-delta T	not a named cycling cluster	NK and minor lymphoid	#7CDFA2	Display block is not a lineage assignment
+28	ILC	ILC	not a named cycling cluster	NK and minor lymphoid	#2B711F	Display block is not a lineage assignment

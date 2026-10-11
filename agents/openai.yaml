@@ -1,0 +1,4 @@
+interface:
+  display_name: "单细胞亚群全景图"
+  short_description: "以逐群marker和有科学信息增量的证据，制作对齐、精美的亚群组合图"
+  default_prompt: "使用 $single-cell-subtype-atlas，为这个数据目录制作有生物学解释力的单细胞亚群全景图。"

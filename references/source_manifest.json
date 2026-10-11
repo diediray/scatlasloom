@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-09",
+  "paper_doi": "10.1038/s41467-025-59341-w",
+  "sources": [
+    {
+      "sha256": "d03f05a78dad728702b1f0c92d5b78b722fee71214b42a8bb3ec0b8abddcaa6e",
+      "source_asset": "paper.xml"
+    },
+    {
+      "sha256": "d139daf15d554191bc72856c3a21d2a80fe317a933faede785589411210e7487",
+      "source_asset": "paper_fig2.png"
+    },
+    {
+      "sha256": "916e87e6c87efc6f07fd86008de0ad1c1206a9f873e00fcda1a3c1a550d64634",
+      "source_asset": "clusters.csv"
+    },
+    {
+      "sha256": "6ebd05a250b545bff4b620323c53964721ef992c70140992d3e6f89bcd0331a7",
+      "source_asset": "Fig2_T_NK_dotplot_odds ratio_for_cell_cluster_type.R"
+    }
+  ],
+  "online_code_directory": "https://github.com/lihaowhusos/TLS_in_HNSCC/tree/main/figure_code",
+  "online_check_scope": "Inspected listed files; no dedicated Fig2b state/pathway matrix preparation file identified from directory listing. Not proof of absence elsewhere.",
+  "note": "Local source paths omitted from the publication package. Original paper figures and author scripts are not redistributed."
+}
