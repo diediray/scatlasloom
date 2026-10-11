@@ -1,0 +1,17 @@
+name: Feature request / 功能建议
+description: Propose a figure module, workflow improvement, or documentation change.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Research or usability need / 科学问题或使用需求
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / 建议实现
+      description: For a new panel, describe the inputs, statistical unit, and value scale.
+    validations:
+      required: true

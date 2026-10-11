@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite this release and the original methods relevant to your analysis."
+type: software
+title: "scAtlasLoom: Single-cell atlas figures with aligned evidence"
+authors:
+  - name: "diediray"
+    website: "https://github.com/diediray"
+version: 0.1.0
+date-released: 2026-10-11
+url: "https://github.com/diediray/scatlasloom"
+repository-code: "https://github.com/diediray/scatlasloom"
+abstract: "A Codex skill and R toolkit for single-cell atlas figures, aligned population highlights and marker evidence, research-specific panels, and explicit scientific review."
+keywords:
+  - single-cell
+  - data-visualization
+  - bioinformatics
+  - R
+  - Codex

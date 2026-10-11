@@ -1,69 +1,142 @@
-# Single-cell subtype atlas · 单细胞亚群全景图
+<div align="center">
 
-A Codex skill and R toolkit for publication-oriented single-cell atlas figures: a main UMAP, aligned population highlights and marker evidence, with optional research-driven panels.
+# scAtlasLoom
 
-用于制作单细胞亚群全景图的工作流与 R 工具。保留清楚的层级、协调的配色、紧凑的矩阵和逐行对应的证据；根据课题选择扩展内容。
+**Single-cell evidence, woven into a coherent atlas.**
 
-## 核心工作流
+A Codex skill and R toolkit for publication-oriented single-cell figures.
 
-**核查数据 → 准备候选分群与命名证据 → 用户明确审核 → 设计扩展模块 → 正式成图与检查。**
+[![Release](https://img.shields.io/github/v/release/diediray/scatlasloom?color=527b86)](https://github.com/diediray/scatlasloom/releases/latest)
+![R toolkit](https://img.shields.io/badge/toolkit-R-276DC3)
+![Codex skill](https://img.shields.io/badge/agent-Codex-333333)
+![Export formats](https://img.shields.io/badge/export-PNG%20%C2%B7%20PDF%20%C2%B7%20SVG-927a60)
 
-- **科学审核是前置关卡。** 用户需确认当前分群及命名版本，之后才能计算下游条件关联、功能／通路模块并制作正式组合图。认可美术效果不等于认可科学标签。
-- **保留清楚的视觉结构。** 主 UMAP、灰底高亮、marker 和可选模块按群对应；单谱系与父类—亚群层级分别组织。
-- **内容可变。** 群数、resolution、算法、基因、功能和模块数量均由数据与问题决定。
-- **注释须有证据。** 结合差异 marker、多基因、竞争谱系、样本支持及 QC；证据不足时保留未决状态。
-- **结果可回查。** 输出图形、数值定义、输入映射、选择依据和运行代码。
+[Quick start](#quick-start) · [Documentation](#documentation) · [Releases](https://github.com/diediray/scatlasloom/releases) · [中文说明](README.zh-CN.md)
 
-## 安装与调用
+</div>
 
-将仓库克隆到你使用的 Codex skills 目录中。例如使用默认目录时：
+---
+
+scAtlasLoom brings a main UMAP, population highlights, marker evidence, and research-specific panels into one aligned figure. It supports both a single lineage with subtypes and broader parent–subtype hierarchies, while keeping the biological choices specific to each project.
+
+## Preview
+
+<p align="center">
+  <img src="examples/synthetic_preview.png" alt="Synthetic atlas with six populations, aligned population highlights, marker dot plots, and optional heatmap and violin panels" width="640">
+</p>
+
+<p align="center"><em>Synthetic rendering demonstration. Coordinates and all values are generated; this is not a biological analysis or a computed UMAP.</em></p>
+
+## What it does
+
+| Component | Purpose |
+| --- | --- |
+| **Atlas overview** | Show the supplied embedding with consistent population colors and readable labels. |
+| **Aligned evidence** | Pair each population highlight with its marker evidence in the same horizontal block. |
+| **Flexible hierarchy** | Organize a lineage into subtypes or highlight parent populations across multiple subtype rows. |
+| **Optional panels** | Add expression, functional, or condition-related evidence when the research question supports it. |
+| **Reproducible exports** | Save PNG, PDF, SVG, alignment tables, and rendering metadata. Dense point clouds are rasterized within vector exports. |
+
+Genes, cluster counts, resolutions, and right-hand panels are not fixed to a particular dataset. The agent workflow selects and documents appropriate evidence; the R tools prepare and render structured inputs.
+
+> [!IMPORTANT]
+> **Clustering and annotation require explicit user review.** Submit the current memberships, proposed names, marker evidence, sample support, and unresolved issues before downstream analysis or a final composite figure. Approval of colors or layout does not approve the science. Changes to scientific inputs require review of the affected version.
+
+## Quick start
+
+### 1. Install the skill
+
+Clone into your Codex skills directory. For the default configuration:
 
 ```bash
-git clone https://github.com/diediray/single-cell-subtype-atlas.git ~/.codex/skills/single-cell-subtype-atlas
+git clone https://github.com/diediray/scatlasloom.git ~/.codex/skills/single-cell-subtype-atlas
 ```
 
-如果你设置了其他 Codex 配置目录，将目标路径改为该目录下的 `skills/single-cell-subtype-atlas`。重启或重新加载 Codex 后调用：
+For a custom Codex configuration directory, use its `skills/single-cell-subtype-atlas` path. Reload skills or start a new session. The invocation name is **`$single-cell-subtype-atlas`**.
+
+### 2. Start with your data and question
 
 ```text
-使用 $single-cell-subtype-atlas，检查我提供的单细胞数据。
-先提交分群和群命名的审核材料，等我确认后，再制作亚群全景图。
+Use $single-cell-subtype-atlas on my single-cell dataset at <data directory>.
+My research question is <question>.
+First prepare clustering and annotation evidence for my review.
+After I approve that version, propose the optional panels and create the atlas.
 ```
 
-提供数据位置、研究背景与已有科学确认即可。详细执行规则见 [SKILL.md](SKILL.md)。
+The skill instructions and detailed analysis references are primarily in Chinese. R interfaces and this overview are available in English; see the [Chinese guide](README.zh-CN.md).
 
-## R 工具与输入
+### 3. Run the synthetic example
 
-R 依赖按使用的入口选择：
+From the repository directory, install the rendering dependencies:
 
 ```r
-install.packages(c("Matrix", "SeuratObject", "ragg", "svglite", "systemfonts"))
+install.packages(c("ragg", "svglite"))
 ```
 
-`grid` 随 R 提供。现有样式使用 Arial；运行环境需要该字体。PDF 导出在 macOS 使用 Quartz，在其他平台需要可用的 Cairo；发布前应检查字体和最终尺寸。
-
-| 工具 | 用途 | 输入说明 |
-|---|---|---|
-| `prepare_marker_atlas.R` | 从 RNA counts、固定分群/UMAP 和完整差异表准备 marker 证据 | [准备接口](references/marker_preparation.md) |
-| `render_modular_atlas.R` | 主 UMAP、逐群小 UMAP—marker 配对及可选扩展 | [组合图接口](references/modular_render_contract.md) |
-| `render_atlas.R` | 父类／亚群、独立高亮成员和群级矩阵 | [层级接口](references/render_contract.md) |
-| `render_marker_atlas.R` | 按需使用的 marker 与细胞表达热图 | [marker 接口](references/marker_render_contract.md) |
-| `score_helpers.R` | 有明确分析设计时使用的表达、通路和配对组成辅助函数 | [数值定义](references/analysis_choices.md) |
-
-紧凑组合图入口目前支持 2–9 群，每群最多六个已选 marker；更复杂的层级使用独立接口或适配实现。它不是自动完成分群和注释的一键分析软件。脚本本身不代替用户的科学审核。
-
-## 合成示例
+Then run:
 
 ```bash
 Rscript examples/make_synthetic_job.R
 Rscript scripts/render_modular_atlas.R examples/generated/figure_job.rds examples/generated synthetic_atlas
 ```
 
-示例使用生成的坐标和人工特征，仅演示绘图接口，不代表真实 UMAP 分析、细胞身份或生物学结论。
+Outputs are written to `examples/generated/`: a 600 dpi PNG, PDF, SVG, preview PNG, alignment table, and rendering metadata. The example uses six artificial populations and requires no biological data or analysis approval.
 
-![Synthetic rendering example](examples/synthetic_preview.png)
+For marker preparation with sparse matrices or Seurat objects, also install `Matrix` and `SeuratObject`. The supplied style uses **Arial**. PDF output uses Quartz on supported macOS builds and Cairo otherwise; check font availability on your platform.
 
-## 来源与验证范围
+## Workflow
 
-证据排列方式参考 [Nature Communications, DOI: 10.1038/s41467-025-59341-w](https://www.nature.com/articles/s41467-025-59341-w)。相关方法与视觉解读保留在 `references/`；仓库不包含论文原图、作者原始脚本、用户的单细胞数据或对话记录。
+**Inspect data → prepare candidate clusters and annotation evidence → user review → design optional analyses → render and inspect.**
 
-参见 [验证范围](references/validation.md)。图形工具的运行检查不等于对新数据的注释、统计或投稿合规作保证。
+1. Review the dataset, existing processing, embeddings, and research context.
+2. Assemble marker evidence and candidate labels, preserving uncertain assignments.
+3. Obtain explicit approval of the current clustering and annotation version.
+4. Choose optional panels with a clear scientific purpose; ask when the research direction is unclear.
+5. Render the figure and check group correspondence, numerical definitions, typography, and final dimensions.
+
+The paired highlight–marker structure remains consistent. Biological identities and downstream questions remain adaptable.
+
+## Documentation
+
+| Entry point | Guide |
+| --- | --- |
+| Agent workflow | [SKILL.md](SKILL.md) |
+| Marker evidence preparation | [Input contract](references/marker_preparation.md) · [Selection rules](references/marker_selection.md) |
+| Compact modular atlas | [Rendering contract](references/modular_render_contract.md) |
+| Parent–subtype atlas | [Hierarchy and membership contract](references/render_contract.md) |
+| Optional panel design | [Scientific design](references/scientific_panel_design.md) · [Analysis choices](references/analysis_choices.md) |
+| Figure styling | [Visual grammar](references/visual_grammar.md) |
+| Validation and limits | [Validation scope](references/validation.md) |
+
+<details>
+<summary>Repository structure</summary>
+
+```text
+SKILL.md           Agent instructions and scientific review gate
+agents/            Codex interface metadata
+scripts/           R preparation, rendering, and scoring helpers
+assets/style/      Reusable palettes and style parameters
+references/        Scientific choices and input contracts
+examples/          Reproducible synthetic rendering example
+docs/releases/     Versioned release notes
+```
+
+</details>
+
+## Current scope
+
+The compact renderer supports **2–9 groups** and **up to six selected markers per group**. Larger hierarchies use the separate `render_atlas.R` contract or need an implementation adaptation. These are rendering limits, not biological recommendations.
+
+The toolkit is not a one-command clustering or annotation pipeline. Running a renderer does not enforce the human review step; the agent workflow and project approval record must do so. Journal-specific dimensions, scientific validity, and annotation accuracy still need review for each dataset. See [validation scope](references/validation.md).
+
+## Support and contributions
+
+Open a [bug report or feature request](https://github.com/diediray/scatlasloom/issues/new/choose). For rendering problems, include the command, R session information, and a small synthetic example. See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance and [CHANGELOG.md](CHANGELOG.md) for changes.
+
+Maintained by [@diediray](https://github.com/diediray).
+
+## Acknowledgments and citation
+
+The evidence organization draws on the figure design in [Nature Communications, DOI: 10.1038/s41467-025-59341-w](https://www.nature.com/articles/s41467-025-59341-w). Source attribution and the distinction between the paper's analysis and this implementation are documented in [case logic](references/case_logic.md) and the [source manifest](references/source_manifest.json).
+
+Use [CITATION.cff](CITATION.cff) to cite this software, and cite the relevant original methods for your analysis. The public package includes reusable code, documentation, and synthetic example data.
