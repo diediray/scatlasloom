@@ -17,10 +17,10 @@ scAtlasLoom 将主 UMAP、逐群高亮、marker 证据与按课题设计的扩�
 ## 效果预览
 
 <p align="center">
-  <img src="examples/synthetic_preview.png" alt="六个人工群的主图、逐群高亮、marker 点图和可选热图及小提琴模块" width="640">
+  <img src="examples/hierarchy_preview.png" alt="80,000 个合成点、五个父类与 28 个亚群，配有逐群高亮、marker 点图及两组连续热图" width="800">
 </p>
 
-<p align="center"><em>纯合成数据演示：坐标与数值均为生成数据，仅展示绘图接口，不代表真实 UMAP 分析或生物学结论。</em></p>
+<p align="center"><em>80,000 个合成点 · 28 个亚群 · 5 个父类。坐标与数值均为生成数据，仅展示绘图接口，不代表真实 UMAP 分析或生物学结论。</em></p>
 
 ## 主要能力
 
@@ -61,17 +61,19 @@ git clone https://github.com/diediray/scatlasloom.git ~/.codex/skills/single-cel
 先在 R 中安装绘图依赖：
 
 ```r
-install.packages(c("ragg", "svglite"))
+install.packages(c("ragg", "svglite", "systemfonts"))
 ```
 
 在仓库目录运行：
 
 ```bash
-Rscript examples/make_synthetic_job.R
-Rscript scripts/render_modular_atlas.R examples/generated/figure_job.rds examples/generated synthetic_atlas
+Rscript examples/make_hierarchy_demo.R
+Rscript scripts/render_atlas.R examples/generated/hierarchy/config.R
 ```
 
-结果保存到 `examples/generated/`，包括 600 dpi PNG、PDF、SVG、预览图、行对应表和绘图元数据。六个人工群的示例不使用真实生物数据。
+结果保存到 `examples/generated/hierarchy/output/`，包括 450 dpi PNG、PDF、SVG、网页预览图、行对应表和绘图元数据。该示例含 28 个抽象亚群和五个父类，不使用真实生物数据。
+
+原有六群紧凑布局仍可运行，命令见 [示例指南](examples/README.md)。
 
 需要从稀疏矩阵或 Seurat 对象准备 marker 时，另装 `Matrix` 和 `SeuratObject`。默认样式需要 **Arial** 字体；PDF 在支持的 macOS 环境使用 Quartz，其他平台使用 Cairo，应检查字体与导出结果。
 

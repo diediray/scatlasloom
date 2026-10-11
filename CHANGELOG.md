@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.1] — 2026-10-11
+
+### Added
+
+- Reproducible 80,000-point, 28-subtype synthetic hierarchy example with five parent groups, marker evidence, and two dense heatmaps.
+- Optional row spacing, group gaps, sidebar height, legend spacing, and web-preview export settings for the hierarchy renderer; existing defaults are preserved.
+
+### Changed
+
+- English and Chinese homepages now feature the dense hierarchy example.
+- Quick-start commands reproduce the displayed figure; the compact six-group example remains available.
+
+[0.1.1]: https://github.com/diediray/scatlasloom/releases/tag/v0.1.1
+
 ## [0.1.0] — 2026-10-11
 
 Initial public release of **scAtlasLoom**.

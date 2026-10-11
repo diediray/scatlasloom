@@ -51,3 +51,9 @@ ATLAS <- list(
 `main_mm`可调整主UMAP显示尺寸（默认110 mm），`particle_factor`可覆盖默认密度倍率。此次28群结构示例采用145 mm及0.65，保留输入坐标，改善原先过淡的点云。尺寸参数是可读性选择，不能取代看图。
 
 渲染器依赖R的grid、ragg、svglite、systemfonts以及配置字体。输出PNG/PDF/SVG和行坐标、标签位置、成员映射、运行记录。28群/80,000模拟细胞的纵横侧栏版与纵向条带版已实际运行并检查；尚未据此宣布新真实数据验证完成。具体范围见[validation.md](validation.md)。
+
+## 可选密度与网页预览参数
+
+`row_height_mm`（默认5.8，至少4）、`group_gap_mm`（默认7，至少0）、`sidebar_min_mm`（默认34，至少25）与 `legend_space_mm`（有气泡默认43，至少32；纯热图默认20，至少20）控制展示密度。压缩后需检查小图标题与相邻分块是否重叠；不得靠删群适应版面。
+
+`preview_dpi` 可设为72–450，在标准PNG/PDF/SVG之外输出同一绘制函数生成的 `_preview.png`，用于网页展示。省略上述参数时保留原有布局与导出行为。可复现例子见 [层级演示脚本](../examples/make_hierarchy_demo.R)。

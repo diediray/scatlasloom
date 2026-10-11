@@ -98,10 +98,17 @@ for(j in seq_along(modules)) {
 table_width<-start-6
 last<-modules[[length(modules)]]
 table_width<-max(table_width,max(last$x+width(last$labels,7.5)/sqrt(2))+3)
-bottom<-if(any(vapply(modules,function(m)m$type=="bubble",logical(1))))43 else 20
-rh<-STYLE$row_height_mm;gap<-if(length(groups)>1)7 else 0
+has_bubble<-any(vapply(modules,function(m)m$type=="bubble",logical(1)))
+bottom<-if(is.null(A$legend_space_mm))if(has_bubble)43 else 20 else A$legend_space_mm
+rh<-if(is.null(A$row_height_mm))STYLE$row_height_mm else A$row_height_mm
+gap<-if(length(groups)>1)if(is.null(A$group_gap_mm))7 else A$group_gap_mm else 0
+sidebar_min<-if(is.null(A$sidebar_min_mm))34 else A$sidebar_min_mm
+stopifnot(length(bottom)==1,is.finite(bottom),bottom>=if(has_bubble)32 else 20,
+          length(rh)==1,is.finite(rh),rh>=4,
+          length(gap)==1,is.finite(gap),gap>=0,
+          length(sidebar_min)==1,is.finite(sidebar_min),sidebar_min>=25)
 gh<-vapply(groups,function(g)sum(cl$group_id==g)*rh,numeric(1))
-if(placement=="sidebar")gh[groups%in%anchors]<-pmax(gh[groups%in%anchors],34)
+if(placement=="sidebar")gh[groups%in%anchors]<-pmax(gh[groups%in%anchors],sidebar_min)
 rows_height<-sum(gh)+gap*(length(groups)-1)
 top<-bottom+rows_height;row_y<-numeric(nrow(cl));group_y<-numeric(length(groups));cursor<-top
 for(k in seq_along(groups)) {
@@ -120,6 +127,7 @@ portrait_dims<-c(max(190,table_width+side+20,main_mm+20),table_height+strip_h+ma
 wide_dims<-c(table_width+side+main_mm+27,max(main_mm+15,table_height)+strip_h+22)
 span<-max(diff(range(cells$umap_1)),diff(range(cells$umap_2)))*STYLE$coordinate_padding
 if(span<=0)stop("Degenerate UMAP")
+if(!is.null(A$preview_dpi))stopifnot(length(A$preview_dpi)==1,is.finite(A$preview_dpi),A$preview_dpi>=72,A$preview_dpi<=450)
 if("--validate-only"%in%args){cat("Validated",nrow(cells),"cells;",nrow(cl),"clusters;",length(groups),"display groups;",length(modules),"modules.\n");quit(save="no")}
 dir.create(OUT,recursive=TRUE,showWarnings=FALSE)
 colors<-setNames(cl$color,cl$cluster_id)
@@ -170,7 +178,7 @@ matrix_panel<-function(x,y) {
       if(m$type=="bubble")circle(m$x[c],row_y[r],4*sqrt(d$size_value[i]/m$size_max),mapcol(d$color_value[i],m))
       else rect(m$x[c],row_y[r],5.615,rh+.015,mapcol(d$value[i],m))
     }
-    yy<-if(bottom==43)25 else 9;w<-18;step<-w/length(m$colors)
+    yy<-if(has_bubble)25 else 9;w<-18;step<-w/length(m$colors)
     for(i in seq_along(m$colors))rect(m$center-w/2+(i-.5)*step,yy,step+.004,2.5,m$colors[i])
     txt(m$legend,m$center,yy+4,6.6)
     for(i in 1:3)txt(m$ticks[i],m$center-9+(i-1)*9,yy-3.6,6.2)
@@ -212,6 +220,7 @@ draw<-function(layout) {
 for(layout in layouts) {
   dims<-if(layout=="portrait")portrait_dims else wide_dims;stem<-file.path(OUT,paste0(A$prefix,"_",layout))
   ragg::agg_png(paste0(stem,".png"),width=dims[1],height=dims[2],units="mm",res=450);draw(layout);dev.off()
+  if(!is.null(A$preview_dpi)){ragg::agg_png(paste0(stem,"_preview.png"),width=dims[1],height=dims[2],units="mm",res=A$preview_dpi);draw(layout);dev.off()}
   if(Sys.info()[["sysname"]]=="Darwin")quartz(type="pdf",file=paste0(stem,".pdf"),width=dims[1]/25.4,height=dims[2]/25.4,family=STYLE$font)
   else cairo_pdf(paste0(stem,".pdf"),width=dims[1]/25.4,height=dims[2]/25.4,family=STYLE$font)
   draw(layout);dev.off()

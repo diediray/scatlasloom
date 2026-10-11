@@ -22,10 +22,10 @@ scAtlasLoom brings a main UMAP, population highlights, marker evidence, and rese
 ## Preview
 
 <p align="center">
-  <img src="examples/synthetic_preview.png" alt="Synthetic atlas with six populations, aligned population highlights, marker dot plots, and optional heatmap and violin panels" width="640">
+  <img src="examples/hierarchy_preview.png" alt="Synthetic atlas with 80,000 points, 28 subtypes in five parent groups, aligned marker evidence, and two dense heatmaps" width="800">
 </p>
 
-<p align="center"><em>Synthetic rendering demonstration. Coordinates and all values are generated; this is not a biological analysis or a computed UMAP.</em></p>
+<p align="center"><em>80,000 simulated points · 28 subtypes · 5 parent groups. Coordinates and all values are generated; this is not a biological analysis or a computed UMAP.</em></p>
 
 ## What it does
 
@@ -70,17 +70,19 @@ The skill instructions and detailed analysis references are primarily in Chinese
 From the repository directory, install the rendering dependencies:
 
 ```r
-install.packages(c("ragg", "svglite"))
+install.packages(c("ragg", "svglite", "systemfonts"))
 ```
 
 Then run:
 
 ```bash
-Rscript examples/make_synthetic_job.R
-Rscript scripts/render_modular_atlas.R examples/generated/figure_job.rds examples/generated synthetic_atlas
+Rscript examples/make_hierarchy_demo.R
+Rscript scripts/render_atlas.R examples/generated/hierarchy/config.R
 ```
 
-Outputs are written to `examples/generated/`: a 600 dpi PNG, PDF, SVG, preview PNG, alignment table, and rendering metadata. The example uses six artificial populations and requires no biological data or analysis approval.
+Outputs are written to `examples/generated/hierarchy/output/`: a 450 dpi PNG, PDF, SVG, a smaller web preview, alignment tables, and rendering metadata. The hierarchy example uses 28 artificial subtypes in five groups and requires no biological data or analysis approval.
+
+For the six-group compact layout, run `examples/make_synthetic_job.R` followed by `scripts/render_modular_atlas.R`; both commands are documented in the [example guide](examples/README.md).
 
 For marker preparation with sparse matrices or Seurat objects, also install `Matrix` and `SeuratObject`. The supplied style uses **Arial**. PDF output uses Quartz on supported macOS builds and Cairo otherwise; check font availability on your platform.
 

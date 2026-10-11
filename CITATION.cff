@@ -5,7 +5,7 @@ title: "scAtlasLoom: Single-cell atlas figures with aligned evidence"
 authors:
   - name: "diediray"
     website: "https://github.com/diediray"
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-10-11
 url: "https://github.com/diediray/scatlasloom"
 repository-code: "https://github.com/diediray/scatlasloom"
